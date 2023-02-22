@@ -73,7 +73,7 @@ app.post('/neworder', async (req, res) => {
 app.get('/ports', (_req, res) => {
     console.log("DAPR_HTTP_PORT: " + daprPort);
     console.log("DAPR_GRPC_PORT: " + daprGRPCPort);
-    res.status(200).send({DAPR_HTTP_PORT: daprPort, DAPR_GRPC_PORT: daprGRPCPort } + ', from cluster: ' + process.env.CLUSTER_NAME + '\n')
+    res.status(200).send(JSON.stringify({DAPR_HTTP_PORT: daprPort, DAPR_GRPC_PORT: daprGRPCPort }) + ', from cluster: ' + process.env.CLUSTER_NAME + '\n')
 });
 
 app.listen(port, () => console.log(`Node App listening on port ${port}!`));
