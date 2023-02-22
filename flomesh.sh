@@ -169,7 +169,7 @@ EOF
 }
 
 function install_osm_edge_binary() {
-    release=v1.3.0
+    release=v1.3.1
     desc "downloading osm-edge cli release - ${release}"
     curl -sL https://github.com/flomesh-io/osm-edge/releases/download/${release}/osm-edge-${release}-${system}-$arch.tar.gz | tar -vxzf -
     osm_binary="$(pwd)/${system}-${arch}/osm"
@@ -188,9 +188,6 @@ function install_edge() {
         --mesh-name "$OSM_MESH_NAME" \
         --osm-namespace "$OSM_NAMESPACE" \
         --set=osm.certificateProvider.kind=tresor \
-        --set=osm.image.registry=cybwan \
-        --set=osm.image.tag=1.3.1 \
-        --set=osm.sidecarImage=flomesh/pipy:0.90.0-54 \
         --set=osm.image.pullPolicy=Always \
         --set=osm.sidecarLogLevel=error \
         --set=osm.controllerLogLevel=warn \
@@ -449,7 +446,7 @@ spec:
       weight: 100
 EOF"
 
-    run "sleep 5"
+    run "sleep 6"
     desc "We have a multi-cluster service!"
     desc "See for yourself"
     run "$k2 exec "${curl_client}" -n curl -c curl -- curl -si --request POST --data '{\"data\":{\"orderId\":\"42\"}}' --header Content-Type:application/json --header dapr-app-id:nodeapp http://nodeapp.dapr-test:3000/neworder"
